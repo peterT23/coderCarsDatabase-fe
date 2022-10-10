@@ -34,16 +34,15 @@ export default function FormModal({ open, handleClose, mode, selectedCar, modalK
 	};
 	const handleEdit = async (newForm) => {
 		try {
-			const res = await apiService.put(`/car/${selectedCar?._id}`, { ...newForm });
+			await apiService.put(`/cars/${selectedCar?._id}`, { ...newForm });
 			refreshData();
-			console.log(res);
 		} catch (err) {
 			console.log(err);
 		}
 	};
 	const handleCreate = async (newForm) => {
 		try {
-			const res = await apiService.post('/car', { ...newForm });
+			const res = await apiService.post('/cars', { ...newForm });
 			refreshData();
 			console.log(res);
 		} catch (err) {
@@ -67,8 +66,8 @@ export default function FormModal({ open, handleClose, mode, selectedCar, modalK
 			setErrors({});
 			setForm(selectedCar);
 		} else setForm(initial_form);
-	}, [selectedCar?._id]);
-	console.log('render');
+	}, [selectedCar]);
+	
 	return (
 		<LocalizationProvider dateAdapter={AdapterDateFns} key={modalKey}>
 			<Dialog
